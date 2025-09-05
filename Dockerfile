@@ -1,0 +1,22 @@
+FROM debian:bullseye-slim
+
+# Install dependencies
+RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
+
+# Install rclone
+RUN curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip \
+    && unzip rclone-current-linux-amd64.zip \
+    && cd rclone-*-linux-amd64 \
+    && cp rclone /usr/bin/ \
+    && chown root:root /usr/bin/rclone \
+    && chmod 755 /usr/bin/rclone
+
+# Copy rclone.conf from repo into container
+RUN mkdir -p /root/.config/rclone
+COPY rclone.conf /root/.config/rclone/rclone.conf
+
+# Working dir
+WORKDIR /app
+
+# Expose Render's $PORT
+CMD ["sh", "-c", "rclone serve webdav myremote: --addr :$PORT --vfs-cache-mode writes"]
