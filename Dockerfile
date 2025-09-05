@@ -21,5 +21,13 @@ WORKDIR /app
 # Expose Render's $PORT
 CMD ["sh", "-c", "rclone serve webdav blomp1-chunker: \
   --addr :$PORT \
-  --vfs-cache-mode off \
-  --buffer-size 16M"]
+  --vfs-cache-mode full \
+  --vfs-cache-max-size 15G \
+  --vfs-cache-max-age 1h \
+  --vfs-read-chunk-size 64M \
+  --vfs-read-chunk-size-limit 2G \
+  --buffer-size 64M \
+  --dir-cache-time 1h \
+  --poll-interval 30s \
+  --transfers 4 \
+  --checkers 8"]
