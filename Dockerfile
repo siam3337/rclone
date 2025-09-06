@@ -31,5 +31,4 @@ CMD ["sh", "-c", "rclone serve webdav blomp1-chunker: \
   --poll-interval 30s \
   --transfers 4 \
   --checkers 8 \
-  --no-modtime \
   --fast-list"]
