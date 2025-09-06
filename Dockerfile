@@ -24,10 +24,12 @@ CMD ["sh", "-c", "rclone serve webdav blomp1-chunker: \
   --vfs-cache-mode full \
   --vfs-cache-max-size 15G \
   --vfs-cache-max-age 1h \
-  --vfs-read-chunk-size 64M \
-  --vfs-read-chunk-size-limit 2G \
-  --buffer-size 64M \
+  --vfs-read-chunk-size 128M \
+  --vfs-read-chunk-size-limit off \
+  --buffer-size 128M \
   --dir-cache-time 1h \
   --poll-interval 30s \
   --transfers 4 \
-  --checkers 8"]
+  --checkers 8 \
+  --no-modtime \
+  --fast-list"]
