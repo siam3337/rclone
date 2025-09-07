@@ -19,7 +19,7 @@ COPY rclone.conf /root/.config/rclone/rclone.conf
 WORKDIR /app
 
 # Expose Render's $PORT
-CMD ["sh", "-c", "rclone serve webdav blomp1-chunker: \
+CMD ["sh", "-c", "rclone serve webdav multirun: \
   --addr :$PORT \
   --vfs-cache-mode full \
   --vfs-cache-max-size 15G \
