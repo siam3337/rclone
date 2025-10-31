@@ -26,10 +26,10 @@ EXPOSE 8080
 # WebDAV startup
 CMD ["sh", "-c", "rclone serve webdav multirun: \
   --addr :8080 \
-  --user ${WEBDAV_USER:-admin} \
-  --pass ${WEBDAV_PASS:-admin} \
-  --vfs-cache-mode full \
-  --vfs-cache-max-size 2G \
+  --no-modtime \
+  --no-checksum \
+  --vfs-cache-mode minimal \
+  --vfs-cache-max-size 512M \
   --buffer-size 64M \
   --dir-cache-time 2h \
   --poll-interval 10s \
