@@ -21,11 +21,11 @@ COPY rclone.conf /root/.config/rclone/rclone.conf
 WORKDIR /app
 
 # Expose Render port
-EXPOSE 10000
+EXPOSE 8080
 
 # Run WebDAV using Render's $PORT env var
 CMD ["sh", "-c", "rclone serve webdav multirun: \
-  --addr :${PORT:-10000} \
+  --addr :${PORT:-8080} \
   --vfs-cache-mode full \
   --vfs-cache-max-size 18G \
   --vfs-cache-max-age 3h \
