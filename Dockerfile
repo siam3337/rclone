@@ -11,29 +11,27 @@ RUN curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip \
     && unzip rclone-current-linux-amd64.zip \
     && cd rclone-*-linux-amd64 \
     && cp rclone /usr/bin/ \
-    && chown root:root /usr/bin/rclone \
-    && chmod 755 /usr/bin/rclone
+    && chmod 755 /usr/bin/rclone \
+    && rm -rf rclone-*-linux-amd64 rclone-current-linux-amd64.zip
 
-# Copy rclone.conf
+# Copy rclone.conf from repo to container
 RUN mkdir -p /root/.config/rclone
 COPY rclone.conf /root/.config/rclone/rclone.conf
 
 WORKDIR /app
 
-# Expose Render port
+# Fly internal port must be static
 EXPOSE 8080
 
-# Run WebDAV using Render's $PORT env var
+# WebDAV startup
 CMD ["sh", "-c", "rclone serve webdav multirun: \
-  --addr :${PORT:-8080} \
+  --addr :8080 \
+  --user ${WEBDAV_USER:-admin} \
+  --pass ${WEBDAV_PASS:-admin} \
   --vfs-cache-mode full \
-  --vfs-cache-max-size 18G \
-  --vfs-cache-max-age 3h \
-  --vfs-read-chunk-size 128M \
-  --vfs-read-chunk-size-limit off \
-  --buffer-size 128M \
+  --vfs-cache-max-size 2G \
+  --buffer-size 64M \
   --dir-cache-time 2h \
   --poll-interval 10s \
   --transfers 4 \
-  --checkers 8 \
-  --fast-list"]
+  --checkers 4"]
