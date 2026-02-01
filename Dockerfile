@@ -23,7 +23,7 @@ WORKDIR /app
 # Fly internal port must be static
 EXPOSE 8080
 
-# WebDAV startup
+# WebDAV startup,
 CMD ["sh", "-c", "rclone serve webdav multirun: \
   --addr :8080 \
   --no-modtime \
