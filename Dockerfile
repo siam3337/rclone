@@ -34,5 +34,4 @@ CMD ["sh", "-c", "rclone serve webdav multirun: \
   --dir-cache-time 2h \
   --poll-interval 10s \
   --transfers 4 \
-  --checkers 4
-  --cache-dir /data/"]
+  --checkers 4"]
